@@ -30,16 +30,6 @@ app.use(morgan(':req_name :req_num'))
         "name": "Albert Einstein",
         "number": "56921-1231-12",
         "id": 4
-      },
-      {
-        "name": "Waris Ali",
-        "number": "12345-3456-8",
-        "id": 5
-      },
-      {
-        "name": "Kashif Raza",
-        "number": "03065648475",
-        "id": 6
       }
     ]
 
