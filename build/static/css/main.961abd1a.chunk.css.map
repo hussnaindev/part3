@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA,cAEI,SACJ,CAEA,gBAEI,WACJ","file":"main.961abd1a.chunk.css","sourcesContent":[".errorMessage \r\n{\r\n    color: red;\r\n}\r\n\r\n.successMessage\r\n{\r\n    color: green\r\n}"]}
