@@ -14,39 +14,6 @@ morgan.token('req_num', function (req,res) {return req.body.number})
 app.use(morgan(':req_name :req_num'))
 
 
-    let persons = [
-      {
-        "name": "Dan Abramov",
-        "number": "12-43-234345",
-        "id": 1
-      },
-      {
-        "name": "Mary Poppendieck",
-        "number": "39-23-6423122",
-        "id": 2
-      },
-      {
-        "name": "Arto Hellas",
-        "number": "1234-2376-98",
-        "id": 3
-      },
-      {
-        "name": "Albert Einstein",
-        "number": "56921-1231-12",
-        "id": 4
-      },
-      {
-        "name": "Waris Ali",
-        "number": "12345-3456-8",
-        "id": 5
-      },
-      {
-        "name": "Kashif Raza",
-        "number": "03065648475",
-        "id": 6
-      }
-    ]
-
 const count = (persons) =>
 {
     return persons.length
@@ -80,22 +47,17 @@ app.post('/api/persons/',(request,response)=>
     })
   }
 
-  const newPerson =
-  {
-    name: body.name,
-    number: body.number,
-    id: generateId()
-  }
-  persons = persons.concat(newPerson)
-  response.json(newPerson)
+  const person = new Person(
+    {
+      name: body.name,
+      number: body.number
+    }
+  )
+  
+  person.save().then(person =>
+  console.log("person successfully added"))
+  response.json(person)
 })
-
-const generateId = () => {
-  const maxId = persons.length > 0
-    ? Math.max(...persons.map(p => p.id))
-    : 0
-  return maxId + 1
-}
 
 app.get('/info',(request,response)=>
 {
