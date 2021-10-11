@@ -1,9 +1,9 @@
+require('dotenv').config()
 const express = require ('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const Person = require('./models/person')
 const app = express()
-
-
 
 app.use(express.json())
 app.use(express.static('build'))
@@ -12,7 +12,6 @@ app.use(cors())
 morgan.token('req_name', function (req, res) { return req.body.name })
 morgan.token('req_num', function (req,res) {return req.body.number})
 app.use(morgan(':req_name :req_num'))
-
 
 
     let persons = [
@@ -56,18 +55,20 @@ const count = (persons) =>
 
 app.get('/api/persons',(request,response)=>
 {
-    response.json(persons)
-})
+    Person.find({}).then(person => 
+    response.json(person)
+)})
 
 app.get('/api/persons/:id',(request,response) => 
 {
-  const id = Number(request.params.id)
-  const personFound = persons.find(person => person.id === id)
-  if(!personFound)
-  {
-    response.status(404).end()
-  }
-  response.json(personFound)
+  Person
+    .findById(request.params.id).then(person =>response.json(person))
+    .catch( error =>
+    {
+      console.log("unable to fetch data")
+      response.status(404).end()
+
+    })
 })
 
 app.post('/api/persons/',(request,response)=>
