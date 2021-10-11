@@ -1,8 +1,9 @@
 const express = require ('express')
 const morgan = require('morgan')
 const cors = require('cors')
-const mongoose = require('mongoose')
 const app = express()
+
+
 
 app.use(express.json())
 app.use(express.static('build'))
@@ -109,6 +110,7 @@ app.delete('/api/persons/:id', (request, response) => {
   persons = persons.filter(person => person.id !== id)
   response.status(204).end()
 })
+
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT)
