@@ -43,7 +43,7 @@ app.post('/api/persons/',(request,response)=>
   const body = request.body
   if (!body.name || !body.number) {
     return response.status(400).json({ 
-      error: 'some info is missing' 
+      error: 'some information is missing' 
     })
   }
 
