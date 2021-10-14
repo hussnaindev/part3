@@ -64,12 +64,18 @@ app.post('/api/persons/',(request,response)=>
     }
   )
   
-  person.save().then(person =>
-  console.log("person successfully added"))
-  response.json(person)
+  person
+    .save()
+    .then(person =>
+      {
+        console.log("person successfully added")
+        response.json(person) 
+    })
+    .catch(error => response.status(404).send({error: error.message}))
+  
 })
 
-app.put('/api/persons/:id',(request,response) =>
+app.put('/api/persons/:id',(request,response,next) =>
 {
 
   const person = {
@@ -80,7 +86,8 @@ app.put('/api/persons/:id',(request,response) =>
   Person
     .findByIdAndUpdate(request.params.id,person)
     .then(updatedPerson =>
-      { console.log(updatedPerson)
+      { 
+        console.log(updatedPerson)
         response.json(updatedPerson)
       })
     .catch(error => next(error))
@@ -98,7 +105,6 @@ app.get('/info',(request,response)=>
         date: Date()
       }
       response.json(info)
-
     })
 })
 
