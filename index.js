@@ -83,17 +83,23 @@ app.put('/api/persons/:id',(request,response) =>
       { console.log(updatedPerson)
         response.json(updatedPerson)
       })
-    .catch(error => console.log(error))
+    .catch(error => next(error))
   
 })
 
 app.get('/info',(request,response)=>
 {
-    const total = count(persons)
-    str = `Phonebook has info of ${total} people`
-    const date = Date()
-    const arr = [str,date]
-    response.json(arr)
+
+  Person.find({}).then(p =>
+    {
+      const info = 
+      {
+        information: `Phonebook has info of ${p.length} people`,
+        date: Date()
+      }
+      response.json(info)
+
+    })
 })
 
 app.delete('/api/persons/:id', (request, response) => 
