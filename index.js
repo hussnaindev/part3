@@ -69,6 +69,24 @@ app.post('/api/persons/',(request,response)=>
   response.json(person)
 })
 
+app.put('/api/persons/:id',(request,response) =>
+{
+
+  const person = {
+    name: request.body.name,
+    number: request.body.number
+  }
+
+  Person
+    .findByIdAndUpdate(request.params.id,person)
+    .then(updatedPerson =>
+      { console.log(updatedPerson)
+        response.json(updatedPerson)
+      })
+    .catch(error => console.log(error))
+  
+})
+
 app.get('/info',(request,response)=>
 {
     const total = count(persons)
