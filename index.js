@@ -13,12 +13,6 @@ morgan.token('req_name', function (req, res) { return req.body.name })
 morgan.token('req_num', function (req,res) {return req.body.number})
 app.use(morgan(':req_name :req_num'))
 
-
-const count = (persons) =>
-{
-    return persons.length
-}
-
 app.get('/api/persons',(request,response)=>
 {
     Person.find({}).then(person => 
@@ -84,7 +78,7 @@ app.put('/api/persons/:id',(request,response,next) =>
   }
 
   Person
-    .findByIdAndUpdate(request.params.id,person)
+    .findByIdAndUpdate(request.params.id,person,{new:true})
     .then(updatedPerson =>
       { 
         console.log(updatedPerson)
